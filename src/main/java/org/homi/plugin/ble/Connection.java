@@ -20,7 +20,7 @@ class Connection {
 		return this.state;
 	}
 
-	synchronized Object write(byte[] config, String GATTService, String GATTCharacteristic) throws InterruptedException {
+	synchronized boolean write(byte[] config, String GATTService, String GATTCharacteristic) throws InterruptedException {
 		
 		if(!BLEInternal.discoveryStarted) {
 			BluetoothManager manager = BluetoothManager.getBluetoothManager();
@@ -28,7 +28,7 @@ class Connection {
 				manager.startDiscovery();
 				BLEInternal.discoveryStarted = true;
 			} catch(BluetoothException be) {
-				return -1;
+				return false;
 			}
 		}
 		
@@ -36,7 +36,7 @@ class Connection {
 
 		if (tempService == null) {
 
-			return -1;
+			return false;
 		}
 		//System.out.println("Found service " + tempService.getUUID());
 
@@ -45,14 +45,18 @@ class Connection {
 		if (gattChar == null) {
 			//System.err.println("Could not find the correct characteristics.");
 			
-			return -1;
+			return false;
 		}
-	
+	try {
 		gattChar.writeValue(config) ;
+	}
+	catch(BluetoothException be) {
+		return false;
+	}
 		
 		//d.disconnect();
 		
-		return 1 ;
+		return true ;
 	}
 
 	synchronized byte[] read(String GATTService, String GATTCharacteristic) throws InterruptedException {

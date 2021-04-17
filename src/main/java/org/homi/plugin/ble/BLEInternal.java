@@ -35,7 +35,7 @@ class BLEInternal {
 
 	
 	
-	synchronized Void pair(String macAddr) {
+	synchronized boolean pair(String macAddr) {
 		if(!connections.contains(macAddr)) {
 			BluetoothManager manager = BluetoothManager.getBluetoothManager();
 		
@@ -46,6 +46,7 @@ class BLEInternal {
 				}
 				catch(BluetoothException be) {
 					be.printStackTrace();
+					return false;
 					
 				}
 			}
@@ -60,17 +61,18 @@ class BLEInternal {
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					return false;
 					
 				}
 				
 			}
 		}
-		return null;
+		return true;
 	}
 
 	
 	
-	synchronized Void connect(String macAddr) {
+	synchronized boolean connect(String macAddr) {
 		if(!connections.contains(macAddr)) {
 			BluetoothManager manager = BluetoothManager.getBluetoothManager();
 			if(!discoveryStarted) {
@@ -80,6 +82,7 @@ class BLEInternal {
 				}
 				catch(BluetoothException be) {
 					be.printStackTrace();
+					return false;
 				
 				}
 			}
@@ -94,15 +97,16 @@ class BLEInternal {
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					return false;
 				
 				}
 			}
 		
 		}
-			return null;
+			return true;
 	}
 	
-	synchronized Void disconnect(String macAddr) {
+	synchronized boolean disconnect(String macAddr) {
 		if(connections.contains(macAddr)) {
 			BluetoothManager manager = BluetoothManager.getBluetoothManager();
 			if(!discoveryStarted) {
@@ -112,6 +116,7 @@ class BLEInternal {
 				}
 				catch(BluetoothException be) {
 					be.printStackTrace();
+					return false;
 				
 				}
 			}
@@ -124,12 +129,13 @@ class BLEInternal {
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					return false;
 				
 				}
 			}
 		
 		}
-		return null;
+		return true;
 	}
 	
 	

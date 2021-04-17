@@ -1,8 +1,8 @@
-import testapi.*;
+
 
 module ble {
-	requires testapi;
+	requires org.homi.plugin.api;
 	requires tinyb;
 	requires bleSpec;
-	provides IPlugin with org.homi.plugin.ble.BLE;
+	provides org.homi.plugin.api.IPlugin with org.homi.plugin.ble.BLE;
 }

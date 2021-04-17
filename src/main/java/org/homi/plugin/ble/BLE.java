@@ -1,6 +1,6 @@
 package org.homi.plugin.ble;
-import testapi.*;
-import org.homi.plugin.spec.*;
+import org.homi.plugin.api.*;
+import org.homi.plugin.BLEspec.*;
 public class BLE extends AbstractPlugin{
 	
 	private BLEInternal bleInt = BLEInternal.getBLEInternal();
@@ -10,15 +10,15 @@ public class BLE extends AbstractPlugin{
 		
 		
 		
-		CommanderBuilder<BLESpec> cb = new CommanderBuilder<>() ;
+		CommanderBuilder<BLESpec> cb = new CommanderBuilder<>(BLESpec.class) ;
 		
 		
 		
-		Commander<BLESpec> c = cb.onMessageEquals(BLESpec.CONNECT, this::connect).
-		onMessageEquals(BLESpec.DISCONNECT, this::disconnect).
-		onMessageEquals(BLESpec.PAIR, this::pair).
-		onMessageEquals(BLESpec.WRITE, this::write).
-		onMessageEquals(BLESpec.READ, this::read).
+		Commander<BLESpec> c = cb.onCommandEquals(BLESpec.CONNECT, this::connect).
+		onCommandEquals(BLESpec.DISCONNECT, this::disconnect).
+		onCommandEquals(BLESpec.PAIR, this::pair).
+		onCommandEquals(BLESpec.WRITE, this::write).
+		onCommandEquals(BLESpec.READ, this::read).
 		build();
 		
 		addCommander(BLESpec.class, c);
@@ -26,32 +26,32 @@ public class BLE extends AbstractPlugin{
 		
 	}
 	
-	private Void connect(Object ...objects) {
+	private boolean connect(Object ...objects) {
 		Object o = objects[0] ;
 		
-			bleInt.connect((String)o) ;
+			return bleInt.connect((String)o) ;
 		
-		return null;
-	}
-	
-	private Void disconnect(Object ...objects) {
-		Object o = objects[0] ;
-		
-			bleInt.disconnect((String)o) ;
-		
-		return null;
 		
 	}
 	
-	private Void pair(Object ...objects) {
+	private boolean disconnect(Object ...objects) {
 		Object o = objects[0] ;
 		
-			bleInt.pair((String)o) ;
+		return bleInt.disconnect((String)o) ;
 		
-		return null;
+		
+		
 	}
 	
-	private Void write(Object ...objects) {
+	private boolean pair(Object ...objects) {
+		Object o = objects[0] ;
+		
+		return bleInt.pair((String)o) ;
+		
+		
+	}
+	
+	private boolean write(Object ...objects) {
 		String mac = (String)objects[0] ;
 		byte[] config = (byte[])objects[1];
 		String GATTService = (String)(objects[2]);
@@ -63,9 +63,10 @@ public class BLE extends AbstractPlugin{
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
 		
-		return null;
+		return true;
 		
 	}
 	
