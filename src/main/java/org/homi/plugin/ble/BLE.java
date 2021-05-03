@@ -1,6 +1,8 @@
 package org.homi.plugin.ble;
 import org.homi.plugin.api.*;
 import org.homi.plugin.BLEspec.*;
+
+@PluginID(id = "BLE")
 public class BLE extends AbstractPlugin{
 	
 	private BLEInternal bleInt = BLEInternal.getBLEInternal();
@@ -86,6 +88,12 @@ public class BLE extends AbstractPlugin{
 		}
 		
 		return b;
+		
+	}
+
+	@Override
+	public void teardown() {
+		// TODO Auto-generated method stub
 		
 	}
 	

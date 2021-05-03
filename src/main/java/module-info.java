@@ -5,4 +5,5 @@ module ble {
 	requires tinyb;
 	requires bleSpec;
 	provides org.homi.plugin.api.IPlugin with org.homi.plugin.ble.BLE;
+	exports org.homi.plugin.ble;
 }
