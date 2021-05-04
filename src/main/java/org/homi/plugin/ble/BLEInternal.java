@@ -195,14 +195,5 @@ class BLEInternal {
 		return null;
 	}
 	
-	static byte[] toPrimitiveByte(Byte[] b) {
-		byte[] b2 = new byte[b.length] ;
-		
-		for(int i = 0; i < b.length; i++) {
-			b2[i] = b[i].byteValue();
-		}
-		
-		return b2 ; 
-		
-	}
+	
 }

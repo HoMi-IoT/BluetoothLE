@@ -55,13 +55,13 @@ public class BLE extends AbstractPlugin{
 	
 	private boolean write(Object ...objects) {
 		String mac = (String)objects[0] ;
-		byte[] config = (byte[])objects[1];
+		Byte[] config = (Byte[])objects[1];
 		String GATTService = (String)(objects[2]);
 		String GATTCharacteristic = (String)objects[3];
 		
 		Connection c = bleInt.connections.get(mac) ;
 		try {
-			c.write(config, GATTService, GATTCharacteristic);
+			c.write(toPrimitiveByte(config), GATTService, GATTCharacteristic);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -94,6 +94,17 @@ public class BLE extends AbstractPlugin{
 	@Override
 	public void teardown() {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	static byte[] toPrimitiveByte(Byte[] b) {
+		byte[] b2 = new byte[b.length] ;
+		
+		for(int i = 0; i < b.length; i++) {
+			b2[i] = b[i].byteValue();
+		}
+		
+		return b2 ; 
 		
 	}
 	
