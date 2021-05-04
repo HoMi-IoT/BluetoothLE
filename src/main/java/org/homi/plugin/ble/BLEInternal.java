@@ -7,7 +7,7 @@ import org.homi.plugin.ble.Connection;
 
 import tinyb.* ;
 class BLEInternal {
-	ConcurrentHashMap<String, Connection> connections;
+	ConcurrentHashMap<String, Connection> connections = new ConcurrentHashMap<>();
 	//static LinkedBlockingQueue<String> queue = new LinkedBlockingQueue<String>();
 	static boolean discoveryStarted = false;
 	static BLEInternal inst = null ;
