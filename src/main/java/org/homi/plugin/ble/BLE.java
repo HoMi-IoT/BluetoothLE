@@ -1,9 +1,12 @@
 package org.homi.plugin.ble;
-import org.homi.plugin.api.*;
 import org.homi.plugin.BLEspec.*;
+import org.homi.plugin.api.PluginID;
+import org.homi.plugin.api.basicplugin.AbstractBasicPlugin;
+import org.homi.plugin.api.commander.Commander;
+import org.homi.plugin.api.commander.CommanderBuilder;
 
 @PluginID(id = "BLE")
-public class BLE extends AbstractPlugin{
+public class BLE extends AbstractBasicPlugin{
 	
 	private BLEInternal bleInt = BLEInternal.getBLEInternal();
 
