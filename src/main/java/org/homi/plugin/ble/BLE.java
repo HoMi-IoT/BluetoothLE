@@ -4,6 +4,7 @@ import org.homi.plugin.api.PluginID;
 import org.homi.plugin.api.basicplugin.AbstractBasicPlugin;
 import org.homi.plugin.api.commander.Commander;
 import org.homi.plugin.api.commander.CommanderBuilder;
+import org.homi.plugin.api.observer.IObserver;
 
 @PluginID(id = "BLE")
 public class BLE extends AbstractBasicPlugin{
@@ -24,6 +25,7 @@ public class BLE extends AbstractBasicPlugin{
 		onCommandEquals(BLESpec.PAIR, this::pair).
 		onCommandEquals(BLESpec.WRITE, this::write).
 		onCommandEquals(BLESpec.READ, this::read).
+		onCommandEquals(BLESpec.LISTEN, this::listen).
 		build();
 		
 		addCommander(BLESpec.class, c);
@@ -91,6 +93,28 @@ public class BLE extends AbstractBasicPlugin{
 		}
 		
 		return b;
+		
+	}
+	
+	public Void listen(Object...objects) {
+		
+		IObserver io = (IObserver) objects[3];
+		
+		String mac = (String)objects[0] ;
+		//byte[] config = (byte[])objects[1];
+		String GATTService = (String)(objects[1]);
+		String GATTCharacteristic = (String)objects[2];
+		
+		Connection c = bleInt.connections.get(mac) ;
+		
+		try {
+			c.listen(GATTService, GATTCharacteristic, io);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
 		
 	}
 

@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import org.homi.plugin.api.observer.IObserver;
 import org.homi.plugin.ble.Connection;
 
 import tinyb.* ;
@@ -194,6 +195,8 @@ class BLEInternal {
 		}
 		return null;
 	}
+
+	
 	
 	
 }
