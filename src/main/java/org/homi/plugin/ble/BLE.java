@@ -1,4 +1,6 @@
 package org.homi.plugin.ble;
+import java.util.Map;
+
 import org.homi.plugin.BLEspec.*;
 import org.homi.plugin.api.PluginID;
 import org.homi.plugin.api.basicplugin.AbstractBasicPlugin;
@@ -26,6 +28,7 @@ public class BLE extends AbstractBasicPlugin{
 		onCommandEquals(BLESpec.WRITE, this::write).
 		onCommandEquals(BLESpec.READ, this::read).
 		onCommandEquals(BLESpec.LISTEN, this::listen).
+		onCommandEquals(BLESpec.GET_DEVICE_INFO, this::getDeviceInfo).
 		build();
 		
 		addCommander(BLESpec.class, c);
@@ -116,6 +119,10 @@ public class BLE extends AbstractBasicPlugin{
 		
 		return null;
 		
+	}
+	
+	public Map<String, Object> getDeviceInfo(Object...objects){
+		return BLEInternal.getDevices();
 	}
 
 	@Override

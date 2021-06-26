@@ -1,5 +1,7 @@
 package org.homi.plugin.ble;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -196,6 +198,25 @@ class BLEInternal {
 		return null;
 	}
 
+	static synchronized Map<String, Object> getDevices() {
+		BluetoothManager manager = BluetoothManager.getBluetoothManager();
+		List<BluetoothDevice> devices = manager.getDevices();
+		Map<String, Object> deviceInfo = new HashMap<String, Object>();
+		for(BluetoothDevice d : devices) {
+			String name = d.getName();
+			String address = d.getAddress();
+			List<String> UUIDs = List.of(d.getUUIDs());
+			String state = d.getConnected() ? "connected" : "disconnected";
+			deviceInfo.put("name", name);
+			deviceInfo.put("address", address);
+			deviceInfo.put("UUIDs", UUIDs);
+			deviceInfo.put("state", state);
+		}
+		
+		return deviceInfo;
+		
+		
+	}
 	
 	
 	
