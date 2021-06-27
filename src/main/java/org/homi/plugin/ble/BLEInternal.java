@@ -7,6 +7,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import org.homi.plugin.api.observer.IObserver;
 import org.homi.plugin.ble.Connection;
+import org.homi.plugin.ble.Connection.STATE;
 
 import tinyb.* ;
 class BLEInternal {
@@ -106,6 +107,19 @@ class BLEInternal {
 			}
 		
 		}
+		else {
+			Connection c = connections.get(macAddr);
+			BluetoothDevice bd = c.getBleDevice();
+			if(bd.getConnected()) {
+				c.setState(STATE.CONNECTED);
+				return true;
+
+			}else {
+				c.setState(STATE.CONNECTED);
+				return bd.connect();
+			}
+			
+		}
 			return true;
 	}
 	
@@ -127,7 +141,8 @@ class BLEInternal {
 				try {
 					BluetoothDevice d = getDevice((String)macAddr);
 					if(d.disconnect()) {
-						connections.remove((String)macAddr);
+						Connection c = connections.get(macAddr);
+						c.setState(STATE.DISCONNECTED);
 					}
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block

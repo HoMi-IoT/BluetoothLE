@@ -129,4 +129,8 @@ class Connection {
 		});
 		
 	}
+	
+	synchronized BluetoothDevice getBleDevice() {
+		return this.device;
+	}
 }
