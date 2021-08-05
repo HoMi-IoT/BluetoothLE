@@ -16,11 +16,7 @@ public class BLE extends AbstractBasicPlugin{
 	@Override
 	public void setup() {
 		
-		
-		
 		CommanderBuilder<BLESpec> cb = new CommanderBuilder<>(BLESpec.class) ;
-		
-		
 		
 		Commander<BLESpec> c = cb.onCommandEquals(BLESpec.CONNECT, this::connect).
 		onCommandEquals(BLESpec.DISCONNECT, this::disconnect).
